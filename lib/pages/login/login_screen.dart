@@ -1,9 +1,11 @@
+import 'package:clinic/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:clinic/pages/login/body_login_screen.dart';
 import 'package:flutter/services.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({Key key}) : super(key: key);
+  final List<User> users;
+  LoginScreen({Key key, this.users}) : super(key: key);
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -12,13 +14,14 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarIconBrightness: Brightness.light
-    ));
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarIconBrightness: Brightness.light));
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Body(),
+      body: BodyLogin(
+        users: widget.users,
+      ),
     );
   }
 

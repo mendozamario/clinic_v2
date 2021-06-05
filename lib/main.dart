@@ -1,8 +1,8 @@
+import 'package:clinic/data/user_data.dart';
 import 'package:flutter/material.dart';
-import 'package:clinic/pages/login/login_screen.dart';
 
 void main() => runApp(MyApp());
- 
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primaryColor: Colors.black),
       home: Scaffold(
-        body: LoginScreen(),
+        body: getUsers(),
       ),
     );
   }
