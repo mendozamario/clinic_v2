@@ -40,9 +40,6 @@ class GetCareStaff extends StatelessWidget {
             return Text("Not Data");
           }
         },
-        initialData: Center(
-          child: CircularProgressIndicator(),
-        ),
       ),
     );
   }

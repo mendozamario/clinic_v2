@@ -178,7 +178,7 @@ class _AddEditCareStaffScreenState extends State<AddEditCareStaffScreen> {
                 fontSize: 16
               ),
             ),
-            onPressed: () => addCareStaff(widget.careStaff.id, widget.title),
+            onPressed: () => addCareStaff(widget.title, widget.careStaff),
           )
         ],
       ),
@@ -219,9 +219,10 @@ class _AddEditCareStaffScreenState extends State<AddEditCareStaffScreen> {
     }
   }
 
-  void addCareStaff(String idEdit, String title) {
+  void addCareStaff(String title, CareStaff careStaff) {
     String stateText;
     String workingText;
+    String idEdit;
 
     if (state == false) {
       stateText = "0";
@@ -236,6 +237,7 @@ class _AddEditCareStaffScreenState extends State<AddEditCareStaffScreen> {
     }
 
     if(title == "Editar personal") {
+      idEdit = careStaff.id;
       deleteCareStaff(idEdit);
     }
 

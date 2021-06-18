@@ -40,9 +40,6 @@ class GetPatients extends StatelessWidget {
             return Text("Not Data");
           }
         },
-        initialData: Center(
-          child: CircularProgressIndicator(),
-        ),
       ),
     );
   }

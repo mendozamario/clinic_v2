@@ -35,9 +35,6 @@ class GetUsers extends StatelessWidget {
             return Text("Not Data");
           }
         },
-        initialData: Center(
-          child: CircularProgressIndicator(),
-        ),
       ),
     );
   }
