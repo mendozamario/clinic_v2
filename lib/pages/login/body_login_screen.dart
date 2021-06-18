@@ -155,7 +155,9 @@ class _BodyLoginState extends State<BodyLogin> {
   void validateCredentials(String username, String password,
       BuildContext context, List<User> users) {
     var user = users.firstWhere(
-        (user) => user.username == username && user.password == password);
+        (user) => user.username == username && user.password == password,
+        orElse: () => null);
+
     if (user != null) {
       Navigator.push(
           context,
@@ -163,23 +165,24 @@ class _BodyLoginState extends State<BodyLogin> {
               builder: (context) => HomeScreen(
                     user: user,
                   )));
-    } else if (user == null){
-      showDialog(
-        context: context, 
-        builder: (_) =>
-          AlertDialog(
+    } else {
+      showAlert(context);
+    }
+  }
+
+  void showAlert(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
             title: Text("Error de inicio de sesion"),
             content: Text("Las credenciales que esta usando son erroneas"),
             actions: [
-              TextButton( 
-                onPressed: (){          
-                  Navigator.of(context).pop();
-                }, 
-                child: Text("Aceptar")
-              )
+              TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: Text('Aceptar'))
             ],
-          )
-      );
-    }
+          );
+        });
   }
 }

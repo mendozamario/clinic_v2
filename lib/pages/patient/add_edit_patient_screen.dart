@@ -26,12 +26,14 @@ class _AddEditPatientState extends State<AddEditPatient> {
   bool state;
   String idEdit;
 
+  DateTime pickedDate;
+
   @override
   void initState() {
     super.initState();
 
     addOrEditMethod(widget.title, widget.patient);
-
+    pickedDate = DateTime.now();
     state = false;
   }
 
@@ -187,8 +189,7 @@ class _AddEditPatientState extends State<AddEditPatient> {
               Icon(Icons.assignment_ind_outlined)),
           buildTextField("Nombre completo", fullNameController,
               Icon(Icons.people_outline_rounded)),
-          buildTextField("Fecha de nacimiento", birthDateController,
-              Icon(Icons.calendar_today)),
+          buildDateTimePicker(),
           buildTextField(
               "Dirección", adressController, Icon(Icons.home_outlined)),
           buildTextField("Barrio", neighborhoodController,
@@ -199,6 +200,26 @@ class _AddEditPatientState extends State<AddEditPatient> {
           buildSwitch(),
           buildButtons(),
         ],
+      ),
+    );
+  }
+
+  Container buildDateTimePicker() {
+    return Container(
+      margin: EdgeInsets.symmetric(
+        vertical: 10,
+        horizontal: 20,
+      ),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.black, width: 0.5),
+        borderRadius: BorderRadius.all(Radius.circular(25.0)),
+      ),
+      child: ListTile(
+        leading: Icon(Icons.calendar_today),
+        title: Text(
+            "Fecha de Nacimiento: ${pickedDate.day},  ${pickedDate.month}, ${pickedDate.year}"),
+        trailing: Icon(Icons.keyboard_arrow_down),
+        onTap: _pickDate,
       ),
     );
   }
@@ -250,7 +271,7 @@ class _AddEditPatientState extends State<AddEditPatient> {
         idController.text,
         pictureController.text,
         fullNameController.text,
-        birthDateController.text,
+        pickedDate.toString(),
         adressController.text,
         neighborhoodController.text,
         phoneController.text,
@@ -258,5 +279,20 @@ class _AddEditPatientState extends State<AddEditPatient> {
         stateText);
 
     Navigator.of(context).pop();
+  }
+
+  _pickDate() async {
+    DateTime date = await showDatePicker(
+      context: context,
+      firstDate: DateTime(DateTime.now().year - 5),
+      lastDate: DateTime(DateTime.now().year + 5),
+      initialDate: pickedDate,
+    );
+
+    if (date != null) {
+      setState(() {
+        pickedDate = date;
+      });
+    }
   }
 }
