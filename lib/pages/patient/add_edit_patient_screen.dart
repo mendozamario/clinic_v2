@@ -189,7 +189,8 @@ class _AddEditPatientState extends State<AddEditPatient> {
               Icon(Icons.assignment_ind_outlined)),
           buildTextField("Nombre completo", fullNameController,
               Icon(Icons.people_outline_rounded)),
-          buildDateTimePicker(),
+          buildTextField("Fecha de nacimiento", birthDateController,
+              Icon(Icons.calendar_today)),
           buildTextField(
               "Dirección", adressController, Icon(Icons.home_outlined)),
           buildTextField("Barrio", neighborhoodController,
@@ -271,7 +272,7 @@ class _AddEditPatientState extends State<AddEditPatient> {
         idController.text,
         pictureController.text,
         fullNameController.text,
-        pickedDate.toString(),
+        birthDateController.text,
         adressController.text,
         neighborhoodController.text,
         phoneController.text,
