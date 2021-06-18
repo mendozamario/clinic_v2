@@ -1,10 +1,11 @@
+import 'package:clinic/data/patient_data.dart';
 import 'package:clinic/models/patient.dart';
 import 'package:flutter/material.dart';
 
 import 'add_edit_patient_screen.dart';
 
 class ConsultPatientScreen extends StatefulWidget {
-  Patient patient;
+  final Patient patient;
   ConsultPatientScreen({Key key, this.patient}) : super(key: key);
 
   @override
@@ -123,7 +124,7 @@ class _ConsultPatientScreenState extends State<ConsultPatientScreen> {
                 fontSize: 16
               ),
             ),
-            onPressed: () => null,
+            onPressed: () => deletePatientMethod(),
           ),
           Spacer(),
           ElevatedButton(
@@ -155,6 +156,33 @@ class _ConsultPatientScreenState extends State<ConsultPatientScreen> {
           )
         ],
       ),
+    );
+  }
+
+  void deletePatientMethod() {
+
+    showDialog(
+      context: context, 
+      builder: (_) =>
+        AlertDialog(
+          title: Text("Eliminar"),
+          content: Text("Esta seguro que desea eliminar al paciente " + widget.patient.fullName),
+          actions: [
+            TextButton(
+              onPressed: (){
+                Navigator.pop(context);
+              },
+              child: Text("Cancelar")
+            ),
+            TextButton( 
+              onPressed: (){          
+                deletePatient(widget.patient.id);
+                Navigator.of(context).pop();
+              }, 
+              child: Text("Eliminar", style: TextStyle(color: Colors.red),)
+            )
+          ],
+        )
     );
   }
 }

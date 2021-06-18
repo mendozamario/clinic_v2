@@ -4,15 +4,16 @@ import 'package:clinic/pages/care_staff/consult_care_staff_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class CareStaff extends StatefulWidget {
-  String profilePicture;
-  CareStaff({Key key, this.profilePicture}) : super(key: key);
+class CareStaffScreen extends StatefulWidget {
+  final String profilePicture;
+  final List<CareStaff> careStaffs;
+  CareStaffScreen({Key key, this.profilePicture, this.careStaffs}) : super(key: key);
 
   @override
-  _CareStaffState createState() => _CareStaffState();
+  _CareStaffScreenState createState() => _CareStaffScreenState();
 }
 
-class _CareStaffState extends State<CareStaff> {
+class _CareStaffScreenState extends State<CareStaffScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,7 +71,7 @@ class _CareStaffState extends State<CareStaff> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ConsultCareStaffScreen(careStaff: careStaffs[index])
+            builder: (context) => ConsultCareStaffScreen(careStaff: widget.careStaffs[index])
           )
         );
       },
@@ -83,7 +84,7 @@ class _CareStaffState extends State<CareStaff> {
               margin: EdgeInsets.all(10),
               child: CircleAvatar(
                 radius: 40,
-                backgroundImage: NetworkImage(careStaffs[index].picture),
+                backgroundImage: NetworkImage(widget.careStaffs[index].picture),
               ),
             ),
             SizedBox(
@@ -98,14 +99,14 @@ class _CareStaffState extends State<CareStaff> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    careStaffs[index].fullName,
+                    widget.careStaffs[index].fullName,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 17,
                     ),
                   ),
                   Text(
-                    'Especialidad: ' + careStaffs[index].type,
+                    'Especialidad: ' + widget.careStaffs[index].type,
                     style: TextStyle(
                       fontSize: 16
                     ),
@@ -127,26 +128,26 @@ class _CareStaffState extends State<CareStaff> {
 
   Widget listCareStaffCards(BuildContext context) {
     return ListView.builder(
-      itemCount: careStaffs.length,
+      itemCount: widget.careStaffs.length,
       itemBuilder: (context, index) {
         return careStaffCard(index);
       },
     );
   }
-}
 
-Color stateColor(int index) {
-  if (careStaffs[index].state == true){
-    return Color(0xFFc2f8cb);
-  } else {
-    return Color(0xFFffa9a3);
+  Color stateColor(int index) {
+    if (widget.careStaffs[index].state == true){
+      return Color(0xFFc2f8cb);
+    } else {
+      return Color(0xFFffa9a3);
+    }
   }
-}
 
-String workingStatus(int index) {
-  if (careStaffs[index].working == true) {
-    return "En turno";
-  } else {
-    return "En descanso";
+  String workingStatus(int index) {
+    if (widget.careStaffs[index].working == true) {
+      return "En turno";
+    } else {
+      return "En descanso";
+    }
   }
 }

@@ -163,8 +163,23 @@ class _BodyLoginState extends State<BodyLogin> {
               builder: (context) => HomeScreen(
                     user: user,
                   )));
-    } else {
-      print('No se encontro el usuario');
+    } else if (user == null){
+      showDialog(
+        context: context, 
+        builder: (_) =>
+          AlertDialog(
+            title: Text("Error de inicio de sesion"),
+            content: Text("Las credenciales que esta usando son erroneas"),
+            actions: [
+              TextButton( 
+                onPressed: (){          
+                  Navigator.of(context).pop();
+                }, 
+                child: Text("Aceptar")
+              )
+            ],
+          )
+      );
     }
   }
 }

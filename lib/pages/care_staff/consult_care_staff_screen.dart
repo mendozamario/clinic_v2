@@ -1,10 +1,11 @@
+import 'package:clinic/data/care_staff_data.dart';
 import 'package:clinic/models/careStaff.dart';
 import 'package:flutter/material.dart';
 
 import 'add_edit_care_staff_screen.dart';
 
 class ConsultCareStaffScreen extends StatefulWidget {
-  CareStaff careStaff;
+  final CareStaff careStaff;
   ConsultCareStaffScreen({Key key, this.careStaff}) : super(key: key);
 
   @override
@@ -12,6 +13,7 @@ class ConsultCareStaffScreen extends StatefulWidget {
 }
 
 class _ConsultCareStaffScreenState extends State<ConsultCareStaffScreen> {
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -120,7 +122,9 @@ class _ConsultCareStaffScreenState extends State<ConsultCareStaffScreen> {
                 fontSize: 16
               ),
             ),
-            onPressed: () => null,
+            onPressed: () => {
+              deleteCareStaffMethod()
+            },
           ),
           Spacer(),
           ElevatedButton(
@@ -152,6 +156,32 @@ class _ConsultCareStaffScreenState extends State<ConsultCareStaffScreen> {
           )
         ],
       ),
+    );
+  }
+
+  void deleteCareStaffMethod() {
+    showDialog(
+      context: context, 
+      builder: (_) =>
+        AlertDialog(
+          title: Text("Eliminar"),
+          content: Text("Esta seguro que desea eliminar al paciente " + widget.careStaff.fullName),
+          actions: [
+            TextButton(
+              onPressed: (){
+                Navigator.pop(context);
+              },
+              child: Text("Cancelar")
+            ),
+            TextButton( 
+              onPressed: (){          
+                deleteCareStaff(widget.careStaff.id);
+                Navigator.of(context).pop();
+              }, 
+              child: Text("Eliminar", style: TextStyle(color: Colors.red),)
+            )
+          ],
+        )
     );
   }
 }
@@ -267,5 +297,6 @@ Widget buildWorking(bool state) {
     );
     
   }
+  
 }
 

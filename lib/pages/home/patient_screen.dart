@@ -5,8 +5,9 @@ import 'package:clinic/models/patient.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class PatientScreen extends StatefulWidget {
-  String profilePicture;
-  PatientScreen({Key key, this.profilePicture}) : super(key: key);
+  final String profilePicture;
+  final List<Patient> patients;
+  PatientScreen({Key key, this.profilePicture, this.patients}) : super(key: key);
 
   @override
   _PatientScreenState createState() => _PatientScreenState();
@@ -71,7 +72,7 @@ class _PatientScreenState extends State<PatientScreen> {
         Navigator.push(
           context, 
           MaterialPageRoute(
-            builder: (context) => ConsultPatientScreen(patient: patients[index],)
+            builder: (context) => ConsultPatientScreen(patient: widget.patients[index],)
           )
         );
       },
@@ -84,7 +85,7 @@ class _PatientScreenState extends State<PatientScreen> {
               margin: EdgeInsets.all(10),
               child: CircleAvatar(
                 radius: 40,
-                backgroundImage: NetworkImage(patients[index].picture),
+                backgroundImage: NetworkImage(widget.patients[index].picture),
               ),
             ),
             SizedBox(
@@ -99,20 +100,20 @@ class _PatientScreenState extends State<PatientScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    patients[index].fullName,
+                    widget.patients[index].fullName,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 17,
                     ),
                   ),
                   Text(
-                    'C.C. ' + patients[index].id,
+                    'C.C. ' + widget.patients[index].id.toString(),
                     style: TextStyle(
                       fontSize: 16
                     ),
                   ),
                   Text(
-                    'Tel. ' + patients[index].phone.toString(),
+                    'Tel. ' + widget.patients[index].phone.toString(),
                     style: TextStyle(
                       fontSize: 16
                     ),
@@ -128,18 +129,20 @@ class _PatientScreenState extends State<PatientScreen> {
 
   Widget listPatientsCards(BuildContext context) {
     return ListView.builder(
-      itemCount: patients.length,
+      itemCount: widget.patients.length,
       itemBuilder: (context, index) {
         return patientCard(index);
       },
     );
   }
-}
 
-Color stateColor(int index) {
-  if (patients[index].state == true){
-    return Color(0xFFc2f8cb);
-  } else {
-    return Color(0xFFffa9a3);
+  Color stateColor(int index) {
+    if (widget.patients[index].state == true){
+      return Color(0xFFc2f8cb);
+    } else {
+      return Color(0xFFffa9a3);
+    }
   }
 }
+
+

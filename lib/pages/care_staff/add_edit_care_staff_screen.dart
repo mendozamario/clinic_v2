@@ -1,5 +1,7 @@
+import 'package:clinic/data/care_staff_data.dart';
 import 'package:clinic/models/careStaff.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 
 class AddEditCareStaffScreen extends StatefulWidget {
   String title;
@@ -12,6 +14,7 @@ class AddEditCareStaffScreen extends StatefulWidget {
 
 class _AddEditCareStaffScreenState extends State<AddEditCareStaffScreen> {
   TextEditingController idController;
+  TextEditingController pictureController;
   TextEditingController fullNameController;
   TextEditingController typeController;
   bool state;
@@ -78,16 +81,55 @@ class _AddEditCareStaffScreenState extends State<AddEditCareStaffScreen> {
       ),
     );
   }
-
-  Widget buildCircleAvatar() {
+  
+  Widget buildSwitchWorking() {
     return Container(
-      margin: EdgeInsets.all(10),
-      child: CircleAvatar(
-        child: Text('Foto'),
-        radius: 70,
+      child: Column(
+        children: <Widget>[
+          Text(
+            "En turno",
+            style: TextStyle(
+              fontSize: 18
+            ),
+          ),
+          FlutterSwitch(
+            value: working,
+            onToggle: (val){
+              setState(() {
+                working = val;
+              });
+            },
+          )
+        ],
       ),
     );
   }
+
+ Widget buildSwitchState() {
+    return Container(
+      margin: EdgeInsets.all(20),
+      child: Column(
+        children: <Widget>[
+          Text(
+            "Estado",
+            style: TextStyle(
+              fontSize: 18,
+            ),
+          ),
+          FlutterSwitch(
+            value: state,
+            showOnOff: false,
+            onToggle: (val) {
+              setState(() {
+                state = val;
+              });
+            },
+          ),
+        ],
+      )
+    );
+  }
+
 
   Widget buildButtons() {
     return Container(
@@ -115,7 +157,7 @@ class _AddEditCareStaffScreenState extends State<AddEditCareStaffScreen> {
                 fontSize: 16
               ),
             ),
-            onPressed: () => null,
+            onPressed: () => Navigator.pop(context),
           ),
           Spacer(),
           ElevatedButton(
@@ -136,7 +178,7 @@ class _AddEditCareStaffScreenState extends State<AddEditCareStaffScreen> {
                 fontSize: 16
               ),
             ),
-            onPressed: () => null,
+            onPressed: () => addCareStaff(widget.careStaff.id, widget.title),
           )
         ],
       ),
@@ -147,10 +189,12 @@ class _AddEditCareStaffScreenState extends State<AddEditCareStaffScreen> {
     return Container(
       child: Column(
         children: <Widget>[
-          buildCircleAvatar(),
+          buildTextField("Foto de perfil", pictureController, Icon(Icons.person_pin_rounded)),
           buildTextField("Identificación", idController, Icon(Icons.assignment_ind_outlined)),
           buildTextField("Nombre completo", fullNameController, Icon(Icons.people_outline_rounded)),
           buildTextField("Especialidad", typeController, Icon(Icons.add)),
+          buildSwitchState(),
+          buildSwitchWorking(),
           buildButtons(),
         ],
       ),
@@ -160,12 +204,51 @@ class _AddEditCareStaffScreenState extends State<AddEditCareStaffScreen> {
   void addOrEditMethod(String title, CareStaff careStaff) {
     if (title == "Editar personal") {
       idController = TextEditingController(text: careStaff.id);
+      pictureController = TextEditingController(text: careStaff.picture);
       fullNameController = TextEditingController(text: careStaff.fullName);
       typeController = TextEditingController(text: careStaff.type);
+      state = careStaff.state;
+      working = careStaff.working;
     } else {
       idController = TextEditingController();
+      pictureController = TextEditingController();
       fullNameController = TextEditingController();
       typeController = TextEditingController();
+      state = false;
+      working = false;
     }
   }
+
+  void addCareStaff(String idEdit, String title) {
+    String stateText;
+    String workingText;
+
+    if (state == false) {
+      stateText = "0";
+    } else {
+      stateText = "1";
+    }
+
+    if (working == false) {
+      workingText = "0";
+    } else {  
+      workingText = "1";
+    }
+
+    if(title == "Editar personal") {
+      deleteCareStaff(idEdit);
+    }
+
+    postCareStaff(
+      idController.text, 
+      pictureController.text, 
+      fullNameController.text, 
+      typeController.text, 
+      stateText, 
+      workingText
+    );
+
+    Navigator.of(context).pop();
+  }
+
 }

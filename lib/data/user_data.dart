@@ -16,8 +16,8 @@ Future<dynamic> _getUsers() async {
   }
 }
 
-class getUsers extends StatelessWidget {
-  const getUsers({Key key}) : super(key: key);
+class GetUsers extends StatelessWidget {
+  const GetUsers({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

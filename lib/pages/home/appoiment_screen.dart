@@ -59,7 +59,7 @@ class _AppoimentScreenState extends State<AppoimentScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  "Nombre: " + consultPatient(appoiments[index].patientId).fullName,
+                  "Nombre: " + "Mario Mendoza",
                 ),
                 Text(
                   "Especialidad: " + appoiments[index].type
@@ -86,10 +86,6 @@ class _AppoimentScreenState extends State<AppoimentScreen> {
       },
     );
   }
-}
-
-Patient consultPatient(String id) {
-  return patients.firstWhere((patient) => patient.id == id);
 }
 
 Color chekedColor(int index) {

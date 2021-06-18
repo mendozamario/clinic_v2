@@ -1,3 +1,5 @@
+import 'package:clinic/data/care_staff_data.dart';
+import 'package:clinic/data/patient_data.dart';
 import 'package:clinic/models/appoiment.dart';
 import 'package:clinic/models/patient.dart';
 import 'package:clinic/models/user.dart';
@@ -87,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.push(
                   context, 
                   MaterialPageRoute(
-                    builder: (context) => PatientScreen(profilePicture: widget.user.profilePicture,),
+                    builder: (context) => GetPatients(profilePicture: widget.user.profilePicture,),
                   )  
                 );
               },
@@ -99,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.push(
                   context, 
                   MaterialPageRoute(
-                    builder: (context) => CareStaff(profilePicture: widget.user.profilePicture)
+                    builder: (context) => GetCareStaff(profilePicture: widget.user.profilePicture)
                   )
                 );
               },
@@ -142,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  "Nombre: " + consultPatient(appoiments[index].patientId).fullName,
+                  "Nombre: " + "Mario Mendoza",
                 ),
                 Text(
                   "Especialidad: " + appoiments[index].type
@@ -171,9 +173,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-Patient consultPatient(String id) {
-  return patients.firstWhere((patient) => patient.id == id);
-}
 
 Color chekedColor(int index) {
   if (appoiments[index].cheked == true) {
