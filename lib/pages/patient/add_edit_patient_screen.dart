@@ -14,7 +14,6 @@ class AddEditPatient extends StatefulWidget {
 }
 
 class _AddEditPatientState extends State<AddEditPatient> {
-
   TextEditingController idController;
   TextEditingController pictureController;
   TextEditingController fullNameController;
@@ -28,9 +27,9 @@ class _AddEditPatientState extends State<AddEditPatient> {
   String idEdit;
 
   @override
-  void initState() { 
+  void initState() {
     super.initState();
-    
+
     addOrEditMethod(widget.title, widget.patient);
 
     state = false;
@@ -39,35 +38,32 @@ class _AddEditPatientState extends State<AddEditPatient> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Text(
-          widget.title,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.black
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          title: Text(
+            widget.title,
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+          ),
+          centerTitle: true,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            color: Colors.black,
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
         ),
-        centerTitle: true,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          color: Colors.black,
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          color: Colors.white,
-          child: createUi(),
-        ),
-      )
-    );
+        body: SingleChildScrollView(
+          child: Container(
+            color: Colors.white,
+            child: createUi(),
+          ),
+        ));
   }
 
-  Widget buildTextField(String title, TextEditingController controller, Icon icon) {
+  Widget buildTextField(
+      String title, TextEditingController controller, Icon icon) {
     return Container(
       margin: EdgeInsets.symmetric(
         vertical: 10,
@@ -77,13 +73,11 @@ class _AddEditPatientState extends State<AddEditPatient> {
         controller: controller,
         decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
-            borderSide: BorderSide(color: Colors.black)
-          ),
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+              borderSide: BorderSide(color: Colors.black)),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
-            borderSide: BorderSide(color: Colors.black)
-          ),
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+              borderSide: BorderSide(color: Colors.black)),
           labelText: title,
           prefixIcon: icon,
         ),
@@ -106,109 +100,101 @@ class _AddEditPatientState extends State<AddEditPatient> {
         lastDate: DateTime(2050),
         icon: Icon(Icons.calendar_today),
         decoration: InputDecoration(
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
-            borderSide: BorderSide(color: Colors.black)
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
-            borderSide: BorderSide(color: Colors.black)
-          ),
-          prefixIcon: Icon(Icons.calendar_today)
-        ),
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                borderSide: BorderSide(color: Colors.black)),
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                borderSide: BorderSide(color: Colors.black)),
+            prefixIcon: Icon(Icons.calendar_today)),
       ),
     );
   }
 
   Widget buildSwitch() {
     return Container(
-      child: Column(
-        children: <Widget>[
-          Text(
-            "Estado",
-            style: TextStyle(
-              fontSize: 18,
-            ),
+        child: Column(
+      children: <Widget>[
+        Text(
+          "Estado",
+          style: TextStyle(
+            fontSize: 18,
           ),
-          FlutterSwitch(
-            value: state,
-            showOnOff: false,
-            onToggle: (val) {
-              setState(() {
-                state = val;
-              });
-            },
-          ),
-        ],
-      )
-    );
+        ),
+        FlutterSwitch(
+          value: state,
+          showOnOff: false,
+          onToggle: (val) {
+            setState(() {
+              state = val;
+            });
+          },
+        ),
+      ],
+    ));
   }
 
   Widget buildButtons() {
     return Container(
-      padding: EdgeInsets.symmetric(
-        vertical: 20,
-        horizontal: 20
-      ),
+      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
       child: Row(
         children: <Widget>[
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              primary: Colors.red,
-              elevation: 5,
-              shape:  RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-              padding: EdgeInsets.symmetric(
-                vertical: 2,
-                horizontal: 30
-              )
-            ),
+                primary: Colors.red,
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)),
+                padding: EdgeInsets.symmetric(vertical: 2, horizontal: 30)),
             child: Text(
               "Cancelar",
               style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 16
-              ),
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16),
             ),
             onPressed: () => Navigator.pop(context),
           ),
           Spacer(),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              primary: Colors.blue,
-              elevation: 5,
-              shape:  RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-              padding: EdgeInsets.symmetric(
-                vertical: 2,
-                horizontal: 40
-              )
-            ),
+                primary: Colors.blue,
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)),
+                padding: EdgeInsets.symmetric(vertical: 2, horizontal: 40)),
             child: Text(
               "Guardar",
               style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 16
-              ),
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16),
             ),
-            onPressed: () => addPatient(widget.title),
+            onPressed: () => addPatient(widget.title, widget.patient),
           )
         ],
       ),
     );
   }
 
-  Widget createUi() { 
+  Widget createUi() {
     return Container(
       child: Column(
         children: <Widget>[
-          buildTextField("Foto de perfil", pictureController, Icon(Icons.person_pin_rounded)),
-          buildTextField("Identificación", idController, Icon(Icons.assignment_ind_outlined)),
-          buildTextField("Nombre completo", fullNameController, Icon(Icons.people_outline_rounded)),
-          buildTextField("Fecha de nacimiento", birthDateController, Icon(Icons.calendar_today)),
-          buildTextField("Dirección", adressController, Icon(Icons.home_outlined)),
-          buildTextField("Barrio", neighborhoodController, Icon(Icons.family_restroom_outlined)),
-          buildTextField("Número telefonico", phoneController, Icon(Icons.phone)),
+          buildTextField("Foto de perfil", pictureController,
+              Icon(Icons.person_pin_rounded)),
+          buildTextField("Identificación", idController,
+              Icon(Icons.assignment_ind_outlined)),
+          buildTextField("Nombre completo", fullNameController,
+              Icon(Icons.people_outline_rounded)),
+          buildTextField("Fecha de nacimiento", birthDateController,
+              Icon(Icons.calendar_today)),
+          buildTextField(
+              "Dirección", adressController, Icon(Icons.home_outlined)),
+          buildTextField("Barrio", neighborhoodController,
+              Icon(Icons.family_restroom_outlined)),
+          buildTextField(
+              "Número telefonico", phoneController, Icon(Icons.phone)),
           buildTextField("Ciudad", cityController, Icon(Icons.location_city)),
           buildSwitch(),
           buildButtons(),
@@ -223,9 +209,10 @@ class _AddEditPatientState extends State<AddEditPatient> {
       pictureController = TextEditingController(text: patient.picture);
       fullNameController = TextEditingController(text: patient.fullName);
       birthDateController = TextEditingController(text: patient.birthDate);
-      ageController  = TextEditingController(text: patient.age.toString());
+      ageController = TextEditingController(text: patient.age.toString());
       adressController = TextEditingController(text: patient.adress);
-      neighborhoodController = TextEditingController(text: patient.neighborhood);
+      neighborhoodController =
+          TextEditingController(text: patient.neighborhood);
       phoneController = TextEditingController(text: patient.phone.toString());
       cityController = TextEditingController(text: patient.city);
       state = patient.state;
@@ -235,7 +222,7 @@ class _AddEditPatientState extends State<AddEditPatient> {
       pictureController = TextEditingController();
       fullNameController = TextEditingController();
       birthDateController = TextEditingController();
-      ageController  = TextEditingController();
+      ageController = TextEditingController();
       adressController = TextEditingController();
       neighborhoodController = TextEditingController();
       phoneController = TextEditingController();
@@ -244,9 +231,10 @@ class _AddEditPatientState extends State<AddEditPatient> {
     }
   }
 
-  void addPatient(String title) {
+  void addPatient(String title, Patient patient) {
+    print(patient);
     String stateText;
-    String idEdit = widget.patient.id;
+    String idEdit;
 
     if (state == false) {
       stateText = "0";
@@ -255,22 +243,20 @@ class _AddEditPatientState extends State<AddEditPatient> {
     }
 
     if (title == "Editar paciente") {
+      idEdit = patient.id;
       deletePatient(idEdit);
-    } 
+    }
     postPatient(
-      idController.text, 
-      pictureController.text, 
-      fullNameController.text, 
-      birthDateController.text,  
-      adressController.text, 
-      neighborhoodController.text, 
-      phoneController.text,
-      cityController.text, 
-      stateText
-    );
-  
+        idController.text,
+        pictureController.text,
+        fullNameController.text,
+        birthDateController.text,
+        adressController.text,
+        neighborhoodController.text,
+        phoneController.text,
+        cityController.text,
+        stateText);
 
     Navigator.of(context).pop();
   }
 }
-
